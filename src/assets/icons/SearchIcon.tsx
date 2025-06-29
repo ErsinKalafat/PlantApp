@@ -1,5 +1,5 @@
 import * as React from "react"
-import Svg, { Circle, Rect, G, Path, Filter, Defs, Stop, FeFlood, FeColorMatrix, FeOffset, FeGaussianBlur, FeComposite, FeBlend, LinearGradient, ClipPath } from "react-native-svg"
+import Svg, { Path } from "react-native-svg"
 
 const SearchIcon = ({ width = 20, height = 20 }) => (
     <Svg width={width} height={height} viewBox="0 0 20 20" fill="none" >
