@@ -1,36 +1,29 @@
 import React from 'react';
-import { Text, StyleSheet, TextStyle, TextProps } from 'react-native';
+import { Text, TextStyle, StyleProp, TextProps } from 'react-native';
+import { scaleFont } from '../helpers/sizeNormalize';
 
-type CustomTextStyleProps = {
-    color?: string;
-    fontSize?: number;
-    fontWeight?: TextStyle['fontWeight'];
-    fontFamily?: string;
-};
+export interface CustomTextProps extends TextProps {
+    style?: StyleProp<TextStyle>;
+    children: React.ReactNode;
+}
 
-const withTextStyle = (WrappedComponent: React.ComponentType<TextProps>) => {
-    return ({
-        color = '#000',
-        fontSize = 16,
-        fontWeight = 'normal',
-        fontFamily,
-        style,
-        ...rest
-    }: TextProps & CustomTextStyleProps) => {
-        const customStyle: TextStyle = {
-            color,
-            fontSize,
-            fontWeight,
-            fontFamily,
-        };
-
-        return (
-            <WrappedComponent
-                {...rest}
-                style={[customStyle, style]}
-            />
-        );
+const CustomText: React.FC<CustomTextProps> = ({
+    style,
+    children,
+    ...props
+}) => {
+    const defaultStyle: TextStyle = {
+        fontSize: scaleFont(16),
+        fontFamily: 'Rubik-Regular',
+        fontWeight: '500',
+        color: 'rgba(19, 35, 27, 1)',
     };
+
+    return (
+        <Text style={[defaultStyle, style]} {...props}>
+            {children}
+        </Text>
+    );
 };
 
-export default withTextStyle;
+export default CustomText; 

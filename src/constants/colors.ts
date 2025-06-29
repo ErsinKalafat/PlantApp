@@ -17,6 +17,7 @@ export const text = {
     grayIcon: 'rgba(189, 189, 189, 1)',
     darkGray: '#666',
     dark: '#333',
+    darkGreen: '#13231B',
 };
 
 export const background = {
@@ -30,6 +31,7 @@ export const background = {
     loading: '#f5f5f5',
     card: '#fff',
     lightCard: '#f8f9fa',
+    transparent: 'transparent',
 };
 
 export const border = {
