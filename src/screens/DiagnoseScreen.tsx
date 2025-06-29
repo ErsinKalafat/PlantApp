@@ -1,38 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+import { View, SafeAreaView, StatusBar } from 'react-native';
+import CustomText from '../components/CustomText';
+import { diagnoseScreenStyles as styles } from '../styles/diagnoseScreenStyles';
 
-export default function SearchScreen() {
+export default function DiagnoseScreen() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
             <View style={styles.container}>
-                <Text style={styles.title}>Diagnose Screen</Text>
-                <Text style={styles.subtitle}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit ab laudantium explicabo quasi ex aspernatur quia distinctio ducimus ipsum omnis illum assumenda quos iusto eum harum corrupti enim, ea quas.</Text>
+                <CustomText style={styles.title}>Diagnose Screen</CustomText>
+                <CustomText style={styles.subtitle}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit ab laudantium explicabo quasi ex aspernatur quia distinctio ducimus ipsum omnis illum assumenda quos iusto eum harum corrupti enim, ea quas.</CustomText>
             </View>
         </SafeAreaView>
     );
-}
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    title: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
-    },
-    subtitle: {
-        fontSize: 16,
-        color: '#666',
-        textAlign: 'center',
-    },
-}); 
+} 

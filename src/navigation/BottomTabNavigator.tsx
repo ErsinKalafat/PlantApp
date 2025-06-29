@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import DiagnoseScreen from '../screens/DiagnoseScreen';
 import MyGardenScreen from '../screens/MyGardenScreen';
@@ -7,9 +7,9 @@ import ProfileScreen from '../screens/ProfileScreen';
 import HomeIcon from '../assets/icons/HomeIcon';
 import ScanIcon from '../assets/icons/ScanIcon';
 import ProfileIcon from '../assets/icons/ProfileIcon';
-import { moderateScale } from '../helpers/sizeNormalize';
 import MyGardenIcon from '../assets/icons/MyGardenIcon';
 import DiagnoseIcon from '../assets/icons/DiagnoseIcon';
+import { bottomTabNavigatorStyles as styles } from '../styles/bottomTabNavigatorStyles';
 
 const Tab = createBottomTabNavigator();
 
@@ -94,39 +94,4 @@ export default function BottomTabNavigator() {
             />
         </Tab.Navigator>
     );
-}
-
-const styles = StyleSheet.create({
-    tabBar: {
-        backgroundColor: '#fff',
-        borderTopWidth: 1,
-        borderTopColor: '#E5E5EA',
-        paddingTop: 5,
-    },
-    tabBarLabel: {
-        fontSize: 12,
-        fontWeight: '500',
-    },
-    tabIcon: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    tabIconText: {
-        fontSize: 24,
-    },
-    centerButtonInner: {
-        width: 64,
-        height: 64,
-        borderRadius: 30,
-        borderWidth: 4,
-        marginBottom: moderateScale(16),
-        borderColor: 'rgba(44, 204, 128, 1)',
-        backgroundColor: 'rgba(40, 175, 110, 1)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    centerButtonIcon: {
-        fontSize: 28,
-        color: '#fff',
-    },
-}); 
+} 

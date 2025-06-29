@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ImageBackground, StatusBar, Image } from 'react-native';
+import { Text, View, TouchableOpacity, ImageBackground, StatusBar, Image } from 'react-native';
 import { useAppDispatch } from '../store/hooks';
 import { setOnboardingCompleted, saveOnboardingStatus } from '../store/slices/onboardingSlice';
 import { moderateScale, scaleFont } from '../helpers/sizeNormalize';
@@ -23,6 +23,7 @@ import {
     baseFontRegular,
     baseFlexRowCenter
 } from '../styles/baseStyles';
+import { onboardingScreenStyles as styles } from '../styles/onboardingScreenStyles';
 
 export default function OnboardingScreen() {
     const dispatch = useAppDispatch();
@@ -53,7 +54,24 @@ export default function OnboardingScreen() {
                 <View style={[baseContainer, baseSpaceBetween, basePaddingHorizontal, basePaddingBottom]}>
                     <View style={[baseFlexCenter, styles.topSection]}>
                         <Image source={currentData.title} style={[baseImageWidth, styles.onboardingTitleImage]} resizeMode='contain' />
-                        <Image source={currentData.image} style={[baseImageWidth, styles.onboardingContentImage]} resizeMode='contain' />
+                        {currentIndex === 2 && (
+                            <>
+                                {/* <Image
+                                    source={require('../assets/images/Artwork.png')}
+                                    style={styles.artworkImage}
+                                    resizeMode='contain'
+                                /> */}
+                                {/* <Image
+                                    source={require('../assets/images/Leafs.png')}
+                                    style={styles.leafsImage}
+                                    resizeMode='contain'
+                                /> */}
+                            </>
+                        )}
+                        <View style={styles.imageContainer}>
+                            <Image source={currentData.image} style={[baseImageWidth, styles.onboardingContentImage]} resizeMode='contain' />
+                        </View>
+
                     </View>
 
                     <View style={[baseFlexEnd, styles.bottomSection]}>
@@ -94,47 +112,4 @@ export default function OnboardingScreen() {
             )}
         </View >
     );
-}
-
-const styles = StyleSheet.create({
-    onboardingContainer: {
-        flex: 1,
-        backgroundColor: 'rgba(250, 250, 250, 1)'
-    },
-    topSection: {
-        flex: 1,
-        paddingTop: moderateScale(50),
-    },
-    bottomSection: {
-        paddingBottom: moderateScale(20),
-    },
-    onboardingTitleImage: {
-        height: moderateScale(85),
-    },
-    onboardingContentImage: {
-        height: moderateScale(499),
-        alignSelf: 'center',
-        resizeMode: 'contain',
-    },
-    pageDot: {
-        width: 6,
-        height: 6,
-        backgroundColor: 'rgba(19, 35, 27, 0.25)',
-    },
-    pageDotActive: {
-        backgroundColor: 'rgba(19, 35, 27, 1)',
-        width: 10,
-        height: 10,
-    },
-    getStartedSubtext: {
-        color: 'rgba(89, 113, 101, 0.7)',
-        fontSize: scaleFont(11),
-        fontWeight: '400',
-        lineHeight: moderateScale(15),
-        marginTop: moderateScale(10),
-        letterSpacing: moderateScale(0.07)
-    },
-    underlinedText: {
-        textDecorationLine: 'underline',
-    },
-}); 
+} 
