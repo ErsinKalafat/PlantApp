@@ -61,34 +61,44 @@ export default function OnboardingScreen() {
             {currentIndex === 3 ? (
                 <PremiumScreen onComplete={nextScreen} />
             ) : (
-                <>
-                    <Image source={currentData.title} style={styles.onboardingTitleImage} resizeMode='contain' />
+                <View style={styles.onboardingContent}>
+                    <View style={styles.topSection}>
+                        <Image source={currentData.title} style={styles.onboardingTitleImage} resizeMode='contain' />
+                        <Image source={currentData.image} style={styles.onboardingContentImage} resizeMode='contain' />
+                    </View>
 
-                    <Image source={currentData.image} style={styles.onboardingContentImage} resizeMode='contain' />
+                    <View style={styles.bottomSection}>
+                        <TouchableOpacity style={styles.nextButton} onPress={nextScreen}>
+                            <Text style={styles.nextButtonText}>
+                                {currentIndex === 0 ? 'Get Started' : 'Continue'}
+                            </Text>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.nextButton} onPress={nextScreen}>
-                        <Text style={styles.nextButtonText}>
-                            {currentIndex === 0 ? 'Get Started' : 'Continue'}
-                        </Text>
-                    </TouchableOpacity>
+                        {currentIndex === 0 && (
+                            <Text style={styles.getStartedSubtext}>
+                                By tapping next, you are agreeing to PlantID{'\n'}
+                                <Text style={styles.underlinedText}>Terms of Use</Text> & <Text style={styles.underlinedText}>Privacy Policy</Text>.
+                            </Text>
+                        )}
 
-                    {currentData.showIndicator && (
-                        <View style={styles.pageIndicator}>
-                            {onboardingData.map((_, index) => {
-                                if (index === 0) return null;
-                                return (
-                                    <View
-                                        key={index}
-                                        style={[
-                                            styles.pageDot,
-                                            index === currentIndex && styles.pageDotActive
-                                        ]}
-                                    />
-                                )
-                            })}
-                        </View>
-                    )}
-                </>
+                        {currentData.showIndicator && (
+                            <View style={styles.pageIndicator}>
+                                {onboardingData.map((_, index) => {
+                                    if (index === 0) return null;
+                                    return (
+                                        <View
+                                            key={index}
+                                            style={[
+                                                styles.pageDot,
+                                                index === currentIndex && styles.pageDotActive
+                                            ]}
+                                        />
+                                    )
+                                })}
+                            </View>
+                        )}
+                    </View>
+                </View>
             )}
         </View >
     );
@@ -125,24 +135,19 @@ const styles = StyleSheet.create({
     },
     onboardingContent: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 30,
-        paddingTop: 168,
+        // justifyContent: 'space-between',
+        paddingHorizontal: 24,
+        paddingBottom: moderateScale(20),
     },
     onboardingTitleImage: {
-        width: moderateScale(300),
+        width: '100%',
         height: moderateScale(85),
-        textAlign: 'center',
-        alignContent: 'center',
-        alignSelf: 'center',
-        marginTop: moderateScale(59)
-
     },
     onboardingContentImage: {
-        width: moderateScale(375),
+        width: '100%',
         height: moderateScale(499),
         alignSelf: 'center',
+        resizeMode: 'contain',
     },
     onboardingSubtitle: {
         fontSize: 24,
@@ -168,26 +173,29 @@ const styles = StyleSheet.create({
     },
     pageIndicator: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        alignItems: 'center',
         marginTop: moderateScale(30),
         marginBottom: moderateScale(50),
     },
     pageDot: {
-        width: 10,
-        height: 10,
+        width: 6,
+        height: 6,
         borderRadius: 5,
         backgroundColor: 'rgba(19, 35, 27, 0.25)',
         marginHorizontal: 5,
     },
     pageDotActive: {
         backgroundColor: 'rgba(19, 35, 27, 1)',
+        width: 10,
+        height: 10,
     },
     nextButton: {
         backgroundColor: 'rgba(40, 175, 110, 1)',
         paddingVertical: 18,
         borderRadius: 12,
         alignItems: 'center',
-        marginHorizontal: 24,
+        width: '100%',
+        marginBottom: moderateScale(5),
     },
     nextButtonText: {
         color: 'rgba(255, 255, 255, 1)',
@@ -222,5 +230,28 @@ const styles = StyleSheet.create({
         marginBottom: moderateScale(40),
         fontFamily: 'Rubik-Regular',
         fontWeight: '400',
+    },
+    getStartedSubtext: {
+        color: 'rgba(89, 113, 101, 0.7)',
+        fontSize: scaleFont(11),
+        fontWeight: '400',
+        lineHeight: moderateScale(15),
+        fontFamily: 'Rubik-Regular',
+        marginTop: 10,
+        textAlign: 'center',
+        letterSpacing: moderateScale(0.07)
+    },
+    underlinedText: {
+        textDecorationLine: 'underline',
+    },
+    topSection: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: moderateScale(50),
+    },
+    bottomSection: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 }); 
