@@ -1,4 +1,23 @@
 {
+    "home": {
+        "greeting": {
+            "top": "Merhaba, bitki sever!",
+            "main": "İyi Öğleden Sonra! ⛅"
+        },
+        "search": {
+            "placeholder": "Bitki ara"
+        },
+        "section": {
+            "getStarted": "Başlayalım"
+        },
+        "loading": {
+            "text": "Veriler yükleniyor..."
+        },
+        "error": {
+            "text": "Bir sorun oluştu",
+            "retry": "Tekrar dene"
+        }
+    },
     "premium": {
         "title": "PlantApp Premium",
         "subtitle": "Tüm Özelliklere Erişim",

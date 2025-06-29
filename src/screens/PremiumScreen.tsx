@@ -8,6 +8,17 @@ import SpeedMeter from '../assets/icons/SpeedMeter';
 import DiagnoseIcon from '../assets/icons/DiagnoseIcon';
 import ScanIcon2 from '../assets/icons/ScanIcon2';
 import CloseIcon from '../assets/icons/CloseIcon';
+import CustomButton from '../components/CustomButton';
+import {
+    baseContainer,
+    baseFullWidth,
+    baseImageWidth,
+    baseAbsoluteBottom,
+    basePaddingHorizontal,
+    baseFlexRowStart,
+    baseFlexRowSpaceBetween
+} from '../styles/baseStyles';
+import { premiumFeatures } from '../data';
 
 interface PremiumScreenProps {
     onComplete: () => void;
@@ -15,23 +26,18 @@ interface PremiumScreenProps {
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const premiumFeatures = [
-    {
-        id: 1,
-        icon: <ScanIcon2 />,
-        key: 'unlimited'
-    },
-    {
-        id: 2,
-        icon: <SpeedMeter />,
-        key: 'faster'
-    },
-    {
-        id: 3,
-        icon: <DiagnoseIcon />,
-        key: 'detailed'
+const getIconComponent = (iconKey: string) => {
+    switch (iconKey) {
+        case 'scan':
+            return <ScanIcon2 />;
+        case 'speed':
+            return <SpeedMeter />;
+        case 'diagnose':
+            return <DiagnoseIcon />;
+        default:
+            return null;
     }
-];
+};
 
 const baseText = {
     fontFamily: 'Rubik-Regular',
@@ -52,7 +58,7 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[baseContainer, styles.container]}>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
 
             <TouchableOpacity style={styles.closeButton} onPress={onComplete}>
@@ -62,14 +68,14 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
             <View style={styles.imageContainer}>
                 <Image
                     source={require('../assets/images/PremiumScreen.png')}
-                    style={styles.premiumImage}
+                    style={[baseImageWidth, styles.premiumImage]}
                     resizeMode="cover"
                 />
             </View>
 
-            <View style={styles.contentContainer}>
+            <View style={[baseAbsoluteBottom, basePaddingHorizontal, styles.contentContainer]}>
                 <View style={styles.headerSection}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={baseFlexRowStart}>
                         <Text style={styles.imageTitle}>{t('premium.titleFirst')} <Text style={[styles.imageTitle, styles.thinPageTitle]}>{t('premium.titleLast')}</Text></Text>
                     </View>
                     <Text style={styles.imageSubtitle}>{t('premium.subtitle')}</Text>
@@ -84,7 +90,7 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
                         {premiumFeatures.map((feature) => (
                             <View key={feature.id} style={styles.featureCard}>
                                 <View style={styles.featureIconWrapper}>
-                                    <Text style={styles.featureIcon}>{feature.icon}</Text>
+                                    <Text style={styles.featureIcon}>{getIconComponent(feature.iconKey)}</Text>
                                 </View>
                                 <View>
                                     <Text style={[styles.featureText, styles.featureTitle]}>{t(`premium.features.${feature.key}.title`)}</Text>
@@ -124,18 +130,17 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.nextButton}>
-                    <Text style={styles.nextButtonText}>
-                        {t('premium.button')}
-                    </Text>
-                </TouchableOpacity>
+                <CustomButton
+                    title={t('premium.button')}
+                    onPress={() => { }}
+                />
 
                 <View style={styles.bottomSection}>
                     <Text style={styles.bottomText}>
                         {t('premium.bottomText')}
                     </Text>
 
-                    <View style={styles.bottomButtons}>
+                    <View style={[baseFlexRowSpaceBetween, styles.bottomButtons]}>
                         <TouchableOpacity>
                             <Text style={styles.bottomButtonText}>{t('premium.links.terms')}</Text>
                         </TouchableOpacity>
@@ -156,22 +161,16 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: colors.background.darkGreen
     },
     imageContainer: {
         height: SCREEN_HEIGHT * 0.6,
     },
     premiumImage: {
-        width: '100%',
         height: '100%',
     },
     contentContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        paddingHorizontal: moderateScale(24),
+        paddingTop: moderateScale(24),
     },
     headerSection: {
         alignItems: 'flex-start',
@@ -296,21 +295,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: colors.text.white,
     },
-    nextButton: {
-        backgroundColor: colors.primary.green,
-        borderRadius: moderateScale(12),
-        alignItems: 'center',
-        width: '100%',
-        paddingVertical: moderateScale(16),
-        marginBottom: moderateScale(16),
-    },
-    nextButtonText: {
-        ...baseText,
-        color: colors.text.white,
-        lineHeight: moderateScale(24),
-        fontSize: scaleFont(16),
-        fontWeight: '500',
-    },
     bottomSection: {
         alignItems: 'center',
         marginTop: moderateScale(10),
@@ -324,8 +308,6 @@ const styles = StyleSheet.create({
         marginBottom: moderateScale(10),
     },
     bottomButtons: {
-        flexDirection: 'row',
-        alignItems: 'center',
         marginBottom: moderateScale(24),
     },
     bottomButtonText: {
@@ -355,7 +337,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: moderateScale(-1),
         right: moderateScale(-1),
-        paddingHorizontal: moderateScale(8),
+        paddingRight: moderateScale(10),
+        paddingLeft: moderateScale(13),
         paddingVertical: moderateScale(7),
         backgroundColor: colors.primary.green,
         borderTopLeftRadius: moderateScale(0),

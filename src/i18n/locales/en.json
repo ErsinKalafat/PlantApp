@@ -1,4 +1,23 @@
 {
+    "home": {
+        "greeting": {
+            "top": "Hi, plant lover!",
+            "main": "Good Afternoon! ⛅"
+        },
+        "search": {
+            "placeholder": "Search for plants"
+        },
+        "section": {
+            "getStarted": "Get Started"
+        },
+        "loading": {
+            "text": "Loading data..."
+        },
+        "error": {
+            "text": "Something went wrong",
+            "retry": "Try again"
+        }
+    },
     "premium": {
         "titleFirst": "PlantApp",
         "titleLast": "Premium",

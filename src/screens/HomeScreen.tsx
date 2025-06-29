@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Text, View, StyleSheet, StatusBar, ScrollView, Image, Dimensions, ActivityIndicator, TouchableOpacity, Alert, SafeAreaView, TextInput, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchQuestions, QuestionData } from '../store/slices/questionsSlice';
@@ -10,6 +11,7 @@ import SearchIcon from '../assets/icons/SearchIcon';
 
 export default function HomeScreen() {
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
     const { questions, loading: questionsLoading, error: questionsError } = useAppSelector((state) => state.questions);
     const { categories, loading: categoriesLoading, error: categoriesError } = useAppSelector((state) => state.categories);
 
@@ -32,7 +34,7 @@ export default function HomeScreen() {
                 <StatusBar barStyle="dark-content" backgroundColor="#fff" />
                 <View style={styles.loadingContainer}>
                     <ActivityIndicator size="large" color="#007AFF" />
-                    <Text style={styles.loadingText}>Veriler yükleniyor...</Text>
+                    <Text style={styles.loadingText}>{t('home.loading.text')}</Text>
                 </View>
             </SafeAreaView>
         );
@@ -45,7 +47,7 @@ export default function HomeScreen() {
                 <View style={styles.errorContainer}>
                     <Text style={styles.errorText}>{questionsError || categoriesError}</Text>
                     <TouchableOpacity onPress={tryAgain}>
-                        <Text style={styles.retryText}>Bir sorun oluştu</Text>
+                        <Text style={styles.retryText}>{t('home.error.retry')}</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
@@ -62,15 +64,15 @@ export default function HomeScreen() {
                 <ImageBackground source={require('../assets/images/Background.png')} style={styles.backgroundLeaf} resizeMode='stretch'>
                     {/* Absolute positioned content over background */}
                     <View style={styles.overlayContent}>
-                        <Text style={styles.greetingTopText}>Hi, plant lover!</Text>
-                        <Text style={styles.greetingText}>Good Afternoon! ⛅</Text>
+                        <Text style={styles.greetingTopText}>{t('home.greeting.top')}</Text>
+                        <Text style={styles.greetingText}>{t('home.greeting.main')}</Text>
                         <View style={styles.searchContainer}>
                             <View style={styles.searchIconStyle}>
                                 <SearchIcon />
                             </View>
                             <TextInput
                                 style={styles.searchInput}
-                                placeholder="Search for plants"
+                                placeholder={t('home.search.placeholder')}
                                 placeholderTextColor="rgba(175, 175, 175, 1)"
                             />
                         </View>
@@ -85,7 +87,7 @@ export default function HomeScreen() {
                     <TouchableOpacity>
                         <Image source={require('../assets/images/PremiumBox.png')} style={styles.premiumImage} resizeMode='contain' />
                     </TouchableOpacity>
-                    <Text style={styles.sectionTitle}>Get Started</Text>
+                    <Text style={styles.sectionTitle}>{t('home.section.getStarted')}</Text>
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
