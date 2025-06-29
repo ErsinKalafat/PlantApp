@@ -6,6 +6,7 @@ import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import { useAppDispatch, useAppSelector } from './src/store/hooks';
 import { setUser, setToken } from './src/store/slices/userSlice';
+import './src/i18n';
 
 function AppContent() {
   const dispatch = useAppDispatch();
