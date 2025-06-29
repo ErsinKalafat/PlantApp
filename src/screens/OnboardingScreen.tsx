@@ -68,7 +68,7 @@ export default function OnboardingScreen() {
 
                     <TouchableOpacity style={styles.nextButton} onPress={nextScreen}>
                         <Text style={styles.nextButtonText}>
-                            Continue
+                            {currentIndex === 0 ? 'Get Started' : 'Continue'}
                         </Text>
                     </TouchableOpacity>
 

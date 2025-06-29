@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Image, StatusBar, Dimensions, ScrollView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { moderateScale, scaleFont } from '../helpers/sizeNormalize';
+import colors from '../constants/colors';
+import ScanIcon from '../assets/icons/ScanIcon';
+import SpeedMeter from '../assets/icons/SpeedMeter';
+import DiagnoseIcon from '../assets/icons/DiagnoseIcon';
+import ScanIcon2 from '../assets/icons/ScanIcon2';
+import CloseIcon from '../assets/icons/CloseIcon';
 
 interface PremiumScreenProps {
     onComplete: () => void;
@@ -11,37 +18,45 @@ const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 const premiumFeatures = [
     {
         id: 1,
-        icon: '-',
-        title: 'Unlimited',
-        subtitle: 'Plant Identify'
+        icon: <ScanIcon2 />,
+        key: 'unlimited'
     },
     {
         id: 2,
-        icon: '-',
-        title: 'Faster',
-        subtitle: 'Find plants easily'
+        icon: <SpeedMeter />,
+        key: 'faster'
     },
     {
         id: 3,
-        icon: '-',
-        title: 'Detailed',
-        subtitle: 'Plant care'
+        icon: <DiagnoseIcon />,
+        key: 'detailed'
     }
 ];
 
+const baseText = {
+    fontFamily: 'Rubik-Regular',
+    color: colors.text.white,
+};
+
+const baseCard = {
+    borderRadius: moderateScale(12),
+    backgroundColor: colors.background.white08,
+};
+
 export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
-    const [selectedIndex, setSelectedIndex] = useState(0); // İlk checkbox seçili
+    const [selectedIndex, setSelectedIndex] = useState(1);
+    const { t } = useTranslation();
 
     const selectCheckbox = (index: number) => {
         setSelectedIndex(index);
     };
 
     return (
-        <View style={styles.onboardingContainer}>
+        <View style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
 
             <TouchableOpacity style={styles.closeButton} onPress={onComplete}>
-                <Text style={styles.closeButtonText}>✕</Text>
+                <CloseIcon />
             </TouchableOpacity>
 
             <View style={styles.imageContainer}>
@@ -52,10 +67,12 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
                 />
             </View>
 
-            <View style={styles.fourthScreenContent}>
+            <View style={styles.contentContainer}>
                 <View style={styles.headerSection}>
-                    <Text style={styles.imageTitle}>PlantApp Premium</Text>
-                    <Text style={styles.imageSubtitle}>Access All Features</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.imageTitle}>{t('premium.titleFirst')} <Text style={[styles.imageTitle, styles.thinPageTitle]}>{t('premium.titleLast')}</Text></Text>
+                    </View>
+                    <Text style={styles.imageSubtitle}>{t('premium.subtitle')}</Text>
                 </View>
 
                 <View style={styles.scrollContainer}>
@@ -66,59 +83,69 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
                     >
                         {premiumFeatures.map((feature) => (
                             <View key={feature.id} style={styles.featureCard}>
-                                <Text style={styles.featureIcon}>{feature.icon}</Text>
-                                <Text style={styles.featureTitle}>{feature.title}</Text>
-                                <Text style={styles.featureSubtitle}>{feature.subtitle}</Text>
+                                <View style={styles.featureIconWrapper}>
+                                    <Text style={styles.featureIcon}>{feature.icon}</Text>
+                                </View>
+                                <View>
+                                    <Text style={[styles.featureText, styles.featureTitle]}>{t(`premium.features.${feature.key}.title`)}</Text>
+                                    <Text style={[styles.featureText, styles.featureSubtitle]}>{t(`premium.features.${feature.key}.subtitle`)}</Text>
+                                </View>
                             </View>
                         ))}
                     </ScrollView>
                 </View>
 
-                <TouchableOpacity style={[styles.radiusView, { marginBottom: moderateScale(16) }]} onPress={() => selectCheckbox(0)}>
+                <TouchableOpacity style={[styles.radiusView, selectedIndex === 0 && styles.radiusViewSelected, { marginBottom: moderateScale(16) }]} onPress={() => selectCheckbox(0)}>
                     <View style={styles.checkboxContainer}>
                         <View style={[styles.checkbox, selectedIndex === 0 && styles.checkboxChecked]}>
                             {selectedIndex === 0 && <View style={styles.checkboxDot} />}
                         </View>
                         <View style={styles.textContainer}>
-                            <Text style={styles.checkboxTitle}>Free Trial</Text>
-                            <Text style={styles.checkboxDescription}>7 days free access</Text>
+                            <Text style={[styles.featureText, styles.checkboxTitle]}>{t('premium.options.freeTrial.title')}</Text>
+                            <Text style={[styles.featureText, styles.checkboxDescription]}>{t('premium.options.freeTrial.description')}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.radiusView, { marginBottom: moderateScale(24) }]} onPress={() => selectCheckbox(1)}>
+
+                <TouchableOpacity style={[styles.radiusView, selectedIndex === 1 && styles.radiusViewSelected, { marginBottom: moderateScale(24) }]} onPress={() => selectCheckbox(1)}>
+                    {selectedIndex === 1 && (
+                        <View style={styles.saveBadge}>
+                            <Text style={styles.saveBadgeText}>Save 50%</Text>
+                        </View>
+                    )}
                     <View style={styles.checkboxContainer}>
                         <View style={[styles.checkbox, selectedIndex === 1 && styles.checkboxChecked]}>
                             {selectedIndex === 1 && <View style={styles.checkboxDot} />}
                         </View>
                         <View style={styles.textContainer}>
-                            <Text style={styles.checkboxTitle}>Cancel Anytime</Text>
-                            <Text style={styles.checkboxDescription}>No commitment required</Text>
+                            <Text style={[styles.featureText, styles.checkboxTitle]}>{t('premium.options.cancelAnytime.title')}</Text>
+                            <Text style={[styles.featureText, styles.checkboxDescription]}>{t('premium.options.cancelAnytime.description')}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.nextButton}>
                     <Text style={styles.nextButtonText}>
-                        Try free for 3 days
+                        {t('premium.button')}
                     </Text>
                 </TouchableOpacity>
 
                 <View style={styles.bottomSection}>
                     <Text style={styles.bottomText}>
-                        After the 3-day free trial period you'll be charged ₺274.99 per year unless you cancel before the trial expires. Yearly Subscription is Auto-Renewable
+                        {t('premium.bottomText')}
                     </Text>
 
                     <View style={styles.bottomButtons}>
                         <TouchableOpacity>
-                            <Text style={styles.bottomButtonText}>Terms</Text>
+                            <Text style={styles.bottomButtonText}>{t('premium.links.terms')}</Text>
                         </TouchableOpacity>
                         <Text style={styles.bottomButtonSeparator}>•</Text>
                         <TouchableOpacity>
-                            <Text style={styles.bottomButtonText}>Privacy</Text>
+                            <Text style={styles.bottomButtonText}>{t('premium.links.privacy')}</Text>
                         </TouchableOpacity>
                         <Text style={styles.bottomButtonSeparator}>•</Text>
                         <TouchableOpacity>
-                            <Text style={styles.bottomButtonText}>Restore</Text>
+                            <Text style={styles.bottomButtonText}>{t('premium.links.restore')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -128,108 +155,105 @@ export default function PremiumScreen({ onComplete }: PremiumScreenProps) {
 }
 
 const styles = StyleSheet.create({
-    onboardingContainer: {
+    container: {
         flex: 1,
-        backgroundColor: 'rgba(16, 30, 23, 1)'
+        backgroundColor: colors.background.darkGreen
     },
     imageContainer: {
-        flex: 1,
+        height: SCREEN_HEIGHT * 0.6,
     },
     premiumImage: {
         width: '100%',
-        height: SCREEN_HEIGHT * 0.65,
+        height: '100%',
+    },
+    contentContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        paddingHorizontal: moderateScale(24),
     },
     headerSection: {
         alignItems: 'flex-start',
     },
     imageTitle: {
-        fontSize: scaleFont(32),
-        color: 'rgba(255, 255, 255, 1)',
-        textAlign: 'center',
-        marginBottom: moderateScale(16),
+        ...baseText,
+        fontSize: scaleFont(30),
         fontFamily: 'Rubik-Bold',
-        fontWeight: '700',
+        fontWeight: '800',
+        marginBottom: moderateScale(5),
     },
-    imageSubtitle: {
-        fontSize: scaleFont(17),
-        color: 'rgba(255, 255, 255, 0.7)',
-        textAlign: 'center',
-        lineHeight: scaleFont(24),
+    thinPageTitle: {
+        fontSize: scaleFont(24),
         fontFamily: 'Rubik-Light',
         fontWeight: '300',
-        letterSpacing: moderateScale(0.38)
     },
-    featuresScroll: {
-        flex: 1,
+    imageSubtitle: {
+        ...baseText,
+        fontFamily: 'Rubik-Light',
+        fontSize: scaleFont(17),
+        color: colors.text.white07,
+        letterSpacing: moderateScale(0.38),
+        lineHeight: scaleFont(24),
     },
     scrollContainer: {
         paddingVertical: moderateScale(16),
         justifyContent: 'center',
+        marginRight: moderateScale(-24)
+    },
+    featuresScroll: {
+        flex: 1,
     },
     featureCard: {
+        ...baseCard,
         width: moderateScale(156),
-        paddingVertical: 50,
-        marginRight: moderateScale(5),
-        borderRadius: moderateScale(12),
-        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+        paddingVertical: moderateScale(15),
+        marginRight: moderateScale(8),
+        paddingLeft: moderateScale(16),
+        gap: 20
+    },
+    featureText: {
+        ...baseText,
+        textAlign: 'left',
+    },
+    featureIconWrapper: {
+        top: 0,
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: moderateScale(8),
+        backgroundColor: 'rgba(0, 0, 0, 0.24)',
+        width: moderateScale(36),
+        height: moderateScale(35.68),
     },
     featureIcon: {
-        fontSize: scaleFont(24),
-        color: 'rgba(255, 255, 255, 1)',
-        position: 'absolute',
-        top: moderateScale(12),
-        left: moderateScale(12),
+        color: colors.text.white,
     },
     featureTitle: {
-        fontSize: scaleFont(14),
-        color: 'rgba(255, 255, 255, 1)',
-        textAlign: 'left',
+        fontSize: scaleFont(20),
         fontFamily: 'Rubik-Bold',
-        fontWeight: '700',
-        position: 'absolute',
-        bottom: moderateScale(32),
-        left: moderateScale(8),
-        right: moderateScale(8),
+        fontWeight: '500',
+        lineHeight: moderateScale(24)
     },
     featureSubtitle: {
-        fontSize: scaleFont(12),
-        color: 'rgba(255, 255, 255, 0.8)',
-        textAlign: 'left',
-        fontFamily: 'Rubik-Regular',
-        fontWeight: '400',
-        position: 'absolute',
-        bottom: moderateScale(12),
-        left: moderateScale(8),
-        right: moderateScale(8),
+        fontSize: scaleFont(13),
+        color: colors.text.white08,
+        lineHeight: moderateScale(18)
     },
-    fourthScreenContent: {
-        flex: 1,
-        paddingHorizontal: moderateScale(24),
-    },
-    fourthScreenTitle: {
-        fontSize: scaleFont(32),
-        color: 'rgba(255, 255, 255, 1)',
-        textAlign: 'center',
-        marginBottom: moderateScale(16),
-        fontFamily: 'Rubik-Bold',
-        fontWeight: '700',
-    },
-    fourthScreenSubtitle: {
-        fontSize: scaleFont(18),
-        color: 'rgba(255, 255, 255, 0.8)',
-        textAlign: 'center',
-        lineHeight: scaleFont(26),
-        marginBottom: moderateScale(40),
-        fontFamily: 'Rubik-Regular',
-        fontWeight: '400',
-    },
-    // Ortak radiuslu view stili
     radiusView: {
         width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        height: moderateScale(60),
+        backgroundColor: colors.background.white05,
         borderRadius: moderateScale(12),
         padding: moderateScale(15),
         justifyContent: 'center',
+        borderColor: colors.border.white03,
+        borderWidth: 0.5,
+        position: 'relative',
+    },
+    radiusViewSelected: {
+        borderColor: colors.primary.green,
+        borderWidth: 1.5,
     },
     checkboxContainer: {
         flexDirection: 'row',
@@ -240,7 +264,7 @@ const styles = StyleSheet.create({
         height: 24,
         borderRadius: 12,
         borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 1)',
+        borderColor: colors.border.white,
         marginRight: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -250,49 +274,51 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     checkboxTitle: {
+        ...baseText,
         fontSize: scaleFont(14),
-        color: 'rgba(255, 255, 255, 1)',
         fontFamily: 'Rubik-Bold',
         fontWeight: '700',
     },
     checkboxDescription: {
+        ...baseText,
+        fontFamily: 'Rubik-Light',
         fontSize: scaleFont(12),
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontFamily: 'Rubik-Regular',
+        color: colors.text.white08,
         fontWeight: '400',
     },
     checkboxChecked: {
-        backgroundColor: 'rgba(40, 175, 110, 1)',
-        borderColor: 'rgba(40, 175, 110, 1)',
+        backgroundColor: colors.primary.green,
+        borderColor: colors.primary.green,
     },
     checkboxDot: {
         width: 8,
         height: 8,
         borderRadius: 5,
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        backgroundColor: colors.text.white,
     },
     nextButton: {
-        backgroundColor: 'rgba(40, 175, 110, 1)',
+        backgroundColor: colors.primary.green,
         borderRadius: moderateScale(12),
         alignItems: 'center',
         width: '100%',
-        paddingVertical: moderateScale(16)
+        paddingVertical: moderateScale(16),
+        marginBottom: moderateScale(16),
     },
     nextButtonText: {
-        color: 'rgba(255, 255, 255, 1)',
+        ...baseText,
+        color: colors.text.white,
         lineHeight: moderateScale(24),
         fontSize: scaleFont(16),
         fontWeight: '500',
-        fontFamily: 'Rubik-Regular'
     },
     bottomSection: {
         alignItems: 'center',
         marginTop: moderateScale(10),
     },
     bottomText: {
+        ...baseText,
         fontSize: scaleFont(9),
-        color: 'rgba(255, 255, 255, 0.52)',
-        fontFamily: 'Rubik-Regular',
+        color: colors.text.white052,
         fontWeight: '300',
         textAlign: 'center',
         marginBottom: moderateScale(10),
@@ -300,19 +326,19 @@ const styles = StyleSheet.create({
     bottomButtons: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: moderateScale(24)
+        marginBottom: moderateScale(24),
     },
     bottomButtonText: {
+        ...baseText,
         fontSize: scaleFont(11),
-        color: 'rgba(255, 255, 255, 0.5)',
-        fontFamily: 'Rubik-Regular',
+        color: colors.text.white05,
         fontWeight: '400',
         marginHorizontal: moderateScale(4),
     },
     bottomButtonSeparator: {
+        ...baseText,
         fontSize: scaleFont(12),
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontFamily: 'Rubik-Regular',
+        color: colors.text.white08,
         fontWeight: '400',
         marginHorizontal: moderateScale(4),
     },
@@ -321,12 +347,26 @@ const styles = StyleSheet.create({
         top: moderateScale(60),
         right: moderateScale(16),
         zIndex: 1000,
-        padding: moderateScale(8),
+        padding: moderateScale(10),
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        borderRadius: 100
     },
-    closeButtonText: {
-        fontSize: scaleFont(20),
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontFamily: 'Rubik-Regular',
-        fontWeight: '400',
+    saveBadge: {
+        position: 'absolute',
+        top: moderateScale(-1),
+        right: moderateScale(-1),
+        paddingHorizontal: moderateScale(8),
+        paddingVertical: moderateScale(7),
+        backgroundColor: colors.primary.green,
+        borderTopLeftRadius: moderateScale(0),
+        borderTopRightRadius: moderateScale(14),
+        borderBottomLeftRadius: moderateScale(20),
+        borderBottomRightRadius: moderateScale(0),
+    },
+    saveBadgeText: {
+        ...baseText,
+        fontSize: scaleFont(10),
+        fontWeight: '500',
+        color: colors.text.white,
     },
 }); 
