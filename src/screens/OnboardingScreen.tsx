@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ImageBackground, StatusBar, Image } from 'react-native';
 import { useAppDispatch } from '../store/hooks';
-import { setOnboardingCompleted } from '../store/slices/onboardingSlice';
+import { setOnboardingCompleted, saveOnboardingStatus } from '../store/slices/onboardingSlice';
 import { moderateScale, scaleFont } from '../helpers/sizeNormalize';
 import PremiumScreen from './PremiumScreen';
 
@@ -36,7 +36,8 @@ export default function OnboardingScreen() {
     const dispatch = useAppDispatch();
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const completeOnboarding = () => {
+    const completeOnboarding = async () => {
+        await dispatch(saveOnboardingStatus(true));
         dispatch(setOnboardingCompleted(true));
     };
 
@@ -46,10 +47,6 @@ export default function OnboardingScreen() {
         } else {
             completeOnboarding();
         }
-    };
-
-    const skipOnboarding = () => {
-        completeOnboarding();
     };
 
     const currentData = onboardingData[currentIndex];
