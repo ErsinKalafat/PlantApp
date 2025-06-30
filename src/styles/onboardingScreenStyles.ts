@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { moderateScale, scaleFont } from '../helpers/sizeNormalize';
+import { background, text } from '../constants/colors';
 
 export const onboardingScreenStyles = StyleSheet.create({
     onboardingContainer: {
         flex: 1,
-        backgroundColor: 'rgba(250, 250, 250, 1)'
+        backgroundColor: background.onboarding
     },
     topSection: {
         flex: 1,
@@ -24,15 +25,15 @@ export const onboardingScreenStyles = StyleSheet.create({
     pageDot: {
         width: 6,
         height: 6,
-        backgroundColor: 'rgba(19, 35, 27, 0.25)',
+        backgroundColor: text.pageDotInactive,
     },
     pageDotActive: {
-        backgroundColor: 'rgba(19, 35, 27, 1)',
+        backgroundColor: text.pageDotActive,
         width: 10,
         height: 10,
     },
     getStartedSubtext: {
-        color: 'rgba(89, 113, 101, 0.7)',
+        color: text.onboardingSubtext,
         fontSize: scaleFont(11),
         fontWeight: '400',
         lineHeight: moderateScale(15),
