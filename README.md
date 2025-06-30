@@ -1,6 +1,6 @@
-# HubXCase
+# PlantApp
 
-HubXCase, React Native ile geliştirilmiş, çoklu ekranlara sahip modern bir mobil uygulamadır.
+React Native ile geliştirilmiş, çoklu ekranlara sahip modern bir mobil uygulamadır.
 
 ## Özellikler
 - Onboarding, Premium, Home, Diagnose, My Garden, Profile ekranları
