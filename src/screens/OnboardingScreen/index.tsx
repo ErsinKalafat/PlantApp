@@ -14,7 +14,7 @@ export default function OnboardingScreen() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const completeOnboarding = async () => {
-        // await dispatch(saveOnboardingStatus(true)); // en son açılacak
+        await dispatch(saveOnboardingStatus(true)); // burası yorum satırına alınarak onboarding ekranları birden fazla kez kontrol edilebilir
         dispatch(setOnboardingCompleted(true));
     };
 

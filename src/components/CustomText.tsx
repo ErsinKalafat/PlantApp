@@ -8,11 +8,7 @@ export interface CustomTextProps extends TextProps {
     children: React.ReactNode;
 }
 
-const CustomText: React.FC<CustomTextProps> = ({
-    style,
-    children,
-    ...props
-}) => {
+const CustomText: React.FC<CustomTextProps> = ({ style, children, ...props }) => {
     const defaultStyle: TextStyle = {
         fontSize: scaleFont(16),
         fontFamily: 'Rubik-Regular',

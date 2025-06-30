@@ -19,7 +19,8 @@
         }
     },
     "premium": {
-        "title": "PlantApp Premium",
+        "titleFirst": "PlantApp",
+        "titleLast": " Premium",
         "subtitle": "Tüm Özelliklere Erişim",
         "features": {
             "unlimited": {

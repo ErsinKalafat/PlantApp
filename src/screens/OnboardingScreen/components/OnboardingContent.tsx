@@ -7,7 +7,6 @@ import {
     basePaddingBottom,
 } from '../../../styles/baseStyles';
 
-// Sub-components
 import TopSection from './TopSection';
 import BottomSection from './BottomSection';
 
