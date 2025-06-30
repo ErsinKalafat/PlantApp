@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, TouchableOpacity } from 'react-native';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/HomeScreen/index';
 import DiagnoseScreen from '../screens/DiagnoseScreen';
 import MyGardenScreen from '../screens/MyGardenScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -10,6 +10,7 @@ import ProfileIcon from '../assets/icons/ProfileIcon';
 import MyGardenIcon from '../assets/icons/MyGardenIcon';
 import DiagnoseIcon from '../assets/icons/DiagnoseIcon';
 import { bottomTabNavigatorStyles as styles } from '../styles/bottomTabNavigatorStyles';
+import { custom } from '../constants/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,8 +27,8 @@ export default function BottomTabNavigator() {
         <Tab.Navigator
             screenOptions={{
                 tabBarStyle: styles.tabBar,
-                tabBarActiveTintColor: 'rgba(40, 175, 110, 1)',
-                tabBarInactiveTintColor: 'rgba(189, 189, 189, 1)',
+                tabBarActiveTintColor: custom.tabBarActiveTint,
+                tabBarInactiveTintColor: custom.tabBarInactiveTint,
                 tabBarLabelStyle: styles.tabBarLabel,
                 headerShown: false,
                 tabBarShowLabel: true,
@@ -40,7 +41,7 @@ export default function BottomTabNavigator() {
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size, focused }) => (
                         <View style={styles.tabIcon}>
-                            <HomeIcon color={focused ? 'rgba(40, 175, 110, 1)' : 'rgba(189, 189, 189, 1)'} />
+                            <HomeIcon color={focused ? custom.tabBarActiveTint : custom.tabBarInactiveTint} />
                         </View>
                     ),
                 }}
@@ -52,7 +53,7 @@ export default function BottomTabNavigator() {
                     tabBarLabel: 'Diagnose',
                     tabBarIcon: ({ color, size, focused }) => (
                         <View style={styles.tabIcon}>
-                            <DiagnoseIcon color={focused ? 'rgba(40, 175, 110, 1)' : 'rgba(189, 189, 189, 1)'} />
+                            <DiagnoseIcon color={focused ? custom.tabBarActiveTint : custom.tabBarInactiveTint} />
                         </View>
                     ),
 
@@ -75,7 +76,7 @@ export default function BottomTabNavigator() {
                     tabBarLabel: 'My Garden',
                     tabBarIcon: ({ color, size, focused }) => (
                         <View style={styles.tabIcon}>
-                            <MyGardenIcon color={focused ? 'rgba(40, 175, 110, 1)' : 'rgba(189, 189, 189, 1)'} />
+                            <MyGardenIcon color={focused ? custom.tabBarActiveTint : custom.tabBarInactiveTint} />
                         </View>
                     )
                 }}
@@ -87,7 +88,7 @@ export default function BottomTabNavigator() {
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ color, size, focused }) => (
                         <View style={styles.tabIcon}>
-                            <ProfileIcon color={focused ? 'rgba(40, 175, 110, 1)' : 'rgba(189, 189, 189, 1)'} />
+                            <ProfileIcon color={focused ? custom.tabBarActiveTint : custom.tabBarInactiveTint} />
                         </View>
                     ),
                 }}

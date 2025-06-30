@@ -18,6 +18,9 @@ export const text = {
     darkGray: '#666',
     dark: '#333',
     darkGreen: '#13231B',
+    onboardingSubtext: 'rgba(89, 113, 101, 0.7)',
+    pageDotInactive: 'rgba(19, 35, 27, 0.25)',
+    pageDotActive: 'rgba(19, 35, 27, 1)',
 };
 
 export const background = {
@@ -32,6 +35,7 @@ export const background = {
     card: '#fff',
     lightCard: '#f8f9fa',
     transparent: 'transparent',
+    onboarding: 'rgba(250, 250, 250, 1)',
 };
 
 export const border = {
@@ -40,6 +44,7 @@ export const border = {
     gray: 'rgba(60, 60, 67, 0.25)',
     lightGray: '#E5E5EA',
     card: '#e9ecef',
+    tabBar: '#E5E5EA',
 };
 
 export const status = {
@@ -69,6 +74,12 @@ export const custom = {
     buttonSecondary: background.white,
     tabActive: primary.green,
     tabInactive: text.grayIcon,
+    centerButtonBorder: 'rgba(44, 204, 128, 1)',
+    centerButtonBackground: 'rgba(40, 175, 110, 1)',
+    centerButtonIcon: '#fff',
+    tabBarBackground: '#fff',
+    tabBarActiveTint: 'rgba(40, 175, 110, 1)',
+    tabBarInactiveTint: 'rgba(189, 189, 189, 1)',
 };
 
 export const colors = {

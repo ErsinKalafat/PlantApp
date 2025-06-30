@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TextStyle, StyleProp, TextProps } from 'react-native';
 import { scaleFont } from '../helpers/sizeNormalize';
+import colors from '../constants/colors';
 
 export interface CustomTextProps extends TextProps {
     style?: StyleProp<TextStyle>;
@@ -16,7 +17,7 @@ const CustomText: React.FC<CustomTextProps> = ({
         fontSize: scaleFont(16),
         fontFamily: 'Rubik-Regular',
         fontWeight: '500',
-        color: 'rgba(19, 35, 27, 1)',
+        color: colors.text.primary,
     };
 
     return (
